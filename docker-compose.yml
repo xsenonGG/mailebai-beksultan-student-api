@@ -1,0 +1,44 @@
+name: mailebai-beksultan-student-api
+
+services:
+  app:
+    build: .
+    image: mailebai-beksultan-student-api:v1.0.1-mailebai-beksultan-37691
+    container_name: mailebai-beksultan-app
+    ports:
+      - "127.0.0.1:8081:8081"
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/student_api
+      DB_USER: ${POSTGRES_USER:?Set POSTGRES_USER in .env}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      JAVA_TOOL_OPTIONS: "-Xmx512m"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - student-network
+
+  db:
+    image: postgres:17
+    container_name: mailebai-beksultan-db
+    environment:
+      POSTGRES_DB: student_api
+      POSTGRES_USER: ${POSTGRES_USER:?Set POSTGRES_USER in .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    networks:
+      - student-network
+
+volumes:
+  postgres-data:
+
+networks:
+  student-network:
+    driver: bridge

@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'kz.iitu'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.1-37691'
 
 java {
 	toolchain {
@@ -40,4 +40,8 @@ tasks.named('test') {
     testLogging {
         events 'passed', 'failed', 'skipped'
     }
+}
+
+tasks.named('bootJar') {
+    archiveFileName = 'app.jar'
 }
