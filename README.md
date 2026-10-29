@@ -1,4 +1,4 @@
-# Mailebai Beksultan Student API — DevOps Midterm
+# Mailebai Beksultan Student API — DevOps Midterm Documentation
 
 Student: Mailebai Beksultan
 Group: IT2-2313
