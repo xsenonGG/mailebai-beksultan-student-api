@@ -36,3 +36,8 @@ PostgreSQL is reached through service name db.
 A named volume stores database data outside the containers.
 Never commit .env or real passwords: Git history retains secrets,
 and publishing them can expose the database or other accounts.
+
+## CI verification
+Mailebai Beksultan, IT2-2313, ID 37691.
+Jenkins polls Git every minute and runs checkout, build, tests,
+Docker build and image verification when a new commit appears.
