@@ -14,3 +14,11 @@ Base path: /api/mailebai-beksultan/students
 
 Database settings are supplied through DB_URL, DB_USER and DB_PASSWORD.
 The application listens on port 8081; Jenkins uses port 8080.
+
+## CRUD completion by Mailebai Beksultan
+- PUT /{id}: update an existing student.
+- DELETE /{id}: delete an existing student; return 204.
+- Missing records return 404 for retrieval, update and deletion.
+- Automated tests check CRUD persistence and missing-record behavior.
+- Tests use an isolated H2 database; production uses PostgreSQL.
+- Run tests: ./gradlew test

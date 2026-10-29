@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.net.URI;
 import java.util.List;
@@ -38,5 +39,24 @@ public class StudentController {
         return ResponseEntity.created(URI.create(
             "/api/mailebai-beksultan/students/" + student.getId()))
             .body(student);
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public Student update(@PathVariable Long id,
+            @Valid @RequestBody StudentRequest request) {
+        Student student = getById(id);
+        student.setName(request.name());
+        student.setEmail(request.email());
+        student.setStudentGroup(request.studentGroup());
+        return repository.save(student);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        Student student = getById(id);
+        repository.delete(student);
+        return ResponseEntity.noContent().build();
     }
 }
